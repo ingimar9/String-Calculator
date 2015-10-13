@@ -8,7 +8,9 @@ public class Calculator {
 			return 0;
 		}
 		else if(text.contains(",") || text.contains("\n")){
-    			return sum(splitNumbers(text));
+    			String[] numbers = splitNumbers(text);
+			checkIfAnyNegative(numbers);
+			return sum(numbers);
 		}
 		else{
             		return 1;
@@ -25,7 +27,6 @@ public class Calculator {
     		   numbers = numbers.substring(4);
     	   }
     	   String regex = "[,\n" + delimiter + "]";
-	   checkIfAnyNegative(numbers.split(regex));
     	   return numbers.split(regex);
 	}
 
