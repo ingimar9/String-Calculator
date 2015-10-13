@@ -44,7 +44,12 @@ public class Calculator {
         	NegativeNumbers.add(toInt(number));
     	}
 	if(!NegativeNumbers.isEmpty()){
-		throw new RuntimeException("Negatives not allowed: " + NegativeNumbers.get(0)); 
+		String message = "Negatives not allowed: ";
+		for(int i = 0; i < NegativeNumbers.size() -1; i++){
+			message += NegativeNumbers.get(i) + ",";
+		}
+		message += NegativeNumbers.get(NegativeNumbers.size() -1);
+		throw new RuntimeException(message); 
 	}
 	}
 }
