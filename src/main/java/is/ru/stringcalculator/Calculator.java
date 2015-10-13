@@ -44,7 +44,7 @@ public class Calculator {
         	NegativeNumbers.add(toInt(number));
     	}
 	if(!NegativeNumbers.isEmpty()){
-		throw new IllegalArgumentException("Negatives not allowed: " + NegativeNumbers.get(0)); 
+		throw new RuntimeException("Negatives not allowed: " + NegativeNumbers.get(0)); 
 	}
 	}
 }
