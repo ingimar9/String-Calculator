@@ -1,4 +1,5 @@
 package is.ru.stringcalculator;
+import java.util.Vector;
 
 public class Calculator {
 
@@ -24,7 +25,8 @@ public class Calculator {
     		   numbers = numbers.substring(4);
     	   }
     	   String regex = "[,\n" + delimiter + "]";
-    		return numbers.split(regex);
+	   checkIfAnyNegative(numbers.split(regex));
+    	   return numbers.split(regex);
 	}
 
 	private static int sum(String[] numbers){
@@ -33,5 +35,16 @@ public class Calculator {
         	total += toInt(number);
     	}
     	return total;
+	}
+
+	private static void checkIfAnyNegative(String[] numbers){
+    	Vector<Integer> NegativeNumbers = new Vector<Integer>();
+    	for(String number : numbers){
+		if(toInt(number) < 0)
+        	NegativeNumbers.add(toInt(number));
+    	}
+	if(!NegativeNumbers.isEmpty()){
+		throw new IllegalArgumentException("Negatives not allowed: " + NegativeNumbers.get(0)); 
+	}
 	}
 }

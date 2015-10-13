@@ -37,4 +37,8 @@ public class CalculatorTest {
 	public void testWithDifferentDelimeter(){
 	    assertEquals(3, Calculator.add("//;\n1;2"));
 	}
+	@Test(expected = IllegalArgumentException.class)
+	public void testWithNegativeNumbers(){
+	    assertEquals("Negatives not allowed: -1", Calculator.add("-1,2"));
+	}
 }
