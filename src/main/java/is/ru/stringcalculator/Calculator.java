@@ -7,8 +7,12 @@ public class Calculator {
 			return 0;
 		}
 		else if(text.contains(",")){
-    		String[] numbers = text.split(",");
-   		return toInt(numbers[0]) + toInt(numbers[1]);
+		String[] numbers = text.split(",");
+		int total = 0;
+   		for(String number : numbers){
+       		 	total += toInt(number);
+   		 }
+    		return total;
 		}
 		else{
             		return 1;
