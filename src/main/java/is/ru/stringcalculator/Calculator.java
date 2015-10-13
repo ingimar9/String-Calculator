@@ -16,8 +16,15 @@ public class Calculator {
 	private static int toInt(String number){
     		return Integer.parseInt(number);
 	}		
-       private static String[] splitNumbers(String numbers){
-    		return numbers.split("[,\n]");
+
+	 private static String[] splitNumbers(String numbers){
+    	   String delimiter = "";
+    	   if(numbers.matches("//[^0-9]\n.*")){		   
+    		   delimiter = numbers.substring(2,3);
+    		   numbers = numbers.substring(4);
+    	   }
+    	   String regex = "[,\n" + delimiter + "]";
+    		return numbers.split(regex);
 	}
 
 	private static int sum(String[] numbers){
