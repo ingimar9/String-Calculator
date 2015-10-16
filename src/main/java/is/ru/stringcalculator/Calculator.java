@@ -23,7 +23,10 @@ public class Calculator {
 
 	private static String[] splitNumbers(String numbers) {
 		String delimiter = "";
-		int indexOfNewLine = numbers.indexOf("\n");
+		int numberOfOpeningBrackets = numbers.length() - numbers.replace("[","").length(); 
+		int indexOfOpeningBracket = 0;
+		int indexOfClosingBracket = 0;
+		
 		String firstPart = Pattern.quote("//[");
 		String secondPart = Pattern.quote("]");
 
@@ -32,10 +35,21 @@ public class Calculator {
 			numbers = numbers.substring(4);
 			return numbers.split("[,\n" + delimiter + "]");
 		}
-		else if(numbers.substring(0,3).matches(firstPart) && numbers.substring(indexOfNewLine - 1, indexOfNewLine).matches(secondPart)){
-			delimiter = numbers.substring(3, indexOfNewLine - 1);
+		else if(numberOfOpeningBrackets == 1){
+			delimiter = numbers.substring(3, numbers.indexOf("\n") - 1);
 			numbers = numbers.substring(numbers.indexOf("\n") + 1);
 			return numbers.split("[" + delimiter.substring(0, 1) + "]{" + delimiter.length() + "}");
+		}
+		else if(numberOfOpeningBrackets >= 2){
+			
+			for(int i = numberOfOpeningBrackets; i > 0; i--){
+				indexOfOpeningBracket = numbers.indexOf("[");
+				indexOfClosingBracket = numbers.indexOf("]");
+				delimiter += numbers.substring(indexOfOpeningBracket + 1, indexOfClosingBracket);
+				numbers = numbers.substring(indexOfClosingBracket + 1);
+			}
+			numbers = numbers.substring(numbers.indexOf("\n") + 1);
+			return numbers.split("[" + delimiter + "]");
 		}	
 		return numbers.split("[,\n]");
 	}
