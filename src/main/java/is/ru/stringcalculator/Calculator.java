@@ -27,9 +27,6 @@ public class Calculator {
 		int indexOfOpeningBracket = 0;
 		int indexOfClosingBracket = 0;
 		
-		String firstPart = Pattern.quote("//[");
-		String secondPart = Pattern.quote("]");
-
 		if (numbers.matches("//[^0-9]\n.*")) {
 			delimiter = numbers.substring(2, 3);
 			numbers = numbers.substring(4);
