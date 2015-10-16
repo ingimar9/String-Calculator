@@ -1,5 +1,6 @@
 package is.ru.stringcalculator;
 import java.util.Vector;
+import java.util.regex.Pattern;
 
 public class Calculator {
 
@@ -20,14 +21,23 @@ public class Calculator {
     		return Integer.parseInt(number);
 	}		
 
-	 private static String[] splitNumbers(String numbers){
-    	   String delimiter = "";
-    	   if(numbers.matches("//[^0-9]\n.*")){		   
-    		   delimiter = numbers.substring(2,3);
-    		   numbers = numbers.substring(4);
-    	   }
-    	   String regex = "[,\n" + delimiter + "]";
-    	   return numbers.split(regex);
+	private static String[] splitNumbers(String numbers) {
+		String delimiter = "";
+		int indexOfNewLine = numbers.indexOf("\n");
+		String firstPart = Pattern.quote("//[");
+		String secondPart = Pattern.quote("]");
+
+		if (numbers.matches("//[^0-9]\n.*")) {
+			delimiter = numbers.substring(2, 3);
+			numbers = numbers.substring(4);
+			return numbers.split("[,\n" + delimiter + "]");
+		}
+		else if(numbers.substring(0,3).matches(firstPart) && numbers.substring(indexOfNewLine - 1, indexOfNewLine).matches(secondPart)){
+			delimiter = numbers.substring(3, indexOfNewLine - 1);
+			numbers = numbers.substring(numbers.indexOf("\n") + 1);
+			return numbers.split("[" + delimiter.substring(0, 1) + "]{" + delimiter.length() + "}");
+		}	
+		return numbers.split("[,\n]");
 	}
 
 	private static int sum(String[] numbers){

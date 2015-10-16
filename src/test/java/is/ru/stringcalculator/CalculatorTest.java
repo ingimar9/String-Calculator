@@ -66,5 +66,17 @@ public class CalculatorTest {
         public void testWithNumberbiggerThan1000(){
         	assertEquals(2, Calculator.add("1001,2"));
         }
+	@Test
+	public void testWithDelimeterOfLenghtThree(){
+	    assertEquals(6, Calculator.add("//[***]\n1***2***3"));
+	}
+
+	@Test
+	public void testWithDelimeterOfLenghtFour(){
+	    assertEquals(8, Calculator.add("//[%%%%]\n1%%%%2%%%%5"));
+	}
+
+
+
 
 }
