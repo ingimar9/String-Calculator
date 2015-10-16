@@ -32,9 +32,13 @@ public class Calculator {
 
 	private static int sum(String[] numbers){
     	int total = 0;
+	int currNumber = 0;
     	for(String number : numbers){
-        	total += toInt(number);
-    	}
+		currNumber = toInt(number);
+		if(currNumber <= 1000){
+        		total += currNumber;
+    		}
+	}
     	return total;
 	}
 
