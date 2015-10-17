@@ -6,8 +6,8 @@ import org.junit.Test;
 public class CalculatorTest {
 
 	public static void main(String args[]) {
-      org.junit.runner.JUnitCore.main("is.ru.stringcalculator.CalculatorTest");
-    }
+      		org.junit.runner.JUnitCore.main("is.ru.stringcalculator.CalculatorTest");
+    	}
 	@Test
 	public void testEmptyString() {
 		assertEquals(0, Calculator.add(""));
@@ -56,7 +56,6 @@ public class CalculatorTest {
 		assertEquals("Negatives not allowed: -4,-5", ex.getMessage());
 		}
 	}
-	
 	@Test
         public void testWitMultipleNegativeNumbers(){
                 try{
@@ -65,7 +64,6 @@ public class CalculatorTest {
                 assertEquals("Negatives not allowed: -4,-5,-6", ex.getMessage());
                 }
         }
-	
 	@Test
         public void testWithNumberbiggerThan1000(){
         	assertEquals(2, Calculator.add("1001,2"));
@@ -74,12 +72,10 @@ public class CalculatorTest {
 	public void testWithDelimeterOfLenghtThree(){
 	    assertEquals(6, Calculator.add("//[***]\n1***2***3"));
 	}
-
 	@Test
 	public void testWithDelimeterOfLenghtFour(){
 	    assertEquals(8, Calculator.add("//[%%%%]\n1%%%%2%%%%5"));
 	}
-
 	@Test
 	public void testWithMultipleDelimiters(){
 	    assertEquals(6, Calculator.add("//[*][%]\n1*2%3"));
@@ -88,5 +84,4 @@ public class CalculatorTest {
 	public void testWithMultipleDelimitersOfAnyLenght(){
 	    assertEquals(13, Calculator.add("//[***][$][#####]\n1***2$3$1***4#####2"));
 	}
-
 }
