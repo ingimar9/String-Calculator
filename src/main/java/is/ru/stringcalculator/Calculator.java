@@ -9,9 +9,8 @@ public class Calculator {
 			return 0;
 		}
 		else if(text.contains(",") || text.contains("\n")){
-    			String[] numbers = splitNumbers(text);
-			checkIfAnyNegative(numbers);
-			return sum(numbers);
+			checkIfAnyNegative(text);
+			return sum(splitNumbers(text));
 		}
 		else{
             		return toInt(text);
@@ -53,7 +52,7 @@ public class Calculator {
 		}	
 		return numbers.split("[,\n]");
 	}	
-
+	
 	private static int sum(String[] numbers){
     	int total = 0;
 	int currNumber = 0;
@@ -66,7 +65,8 @@ public class Calculator {
     	return total;
 	}
 
-	private static void checkIfAnyNegative(String[] numbers){
+	private static void checkIfAnyNegative(String text){
+	String[] numbers = splitNumbers(text);
     	Vector<Integer> NegativeNumbers = new Vector<Integer>();
     	for(String number : numbers){
 		if(toInt(number) < 0)
