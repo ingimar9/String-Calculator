@@ -23,10 +23,13 @@ public class Calculator {
 
 	private static String[] splitNumbers(String numbers) {
 		String delimiter = "";
-		int numberOfOpeningBrackets = numbers.length() - numbers.replace("[","").length(); 
+		int numberOfOpeningBrackets = numbers.length() - numbers.replace("[", "").length(); 
 		int indexOfOpeningBracket = 0;
 		int indexOfClosingBracket = 0;
 		
+		String firstPart = Pattern.quote("//[");
+		String secondPart = Pattern.quote("]");
+
 		if (numbers.matches("//[^0-9]\n.*")) {
 			delimiter = numbers.substring(2, 3);
 			numbers = numbers.substring(4);
@@ -38,18 +41,23 @@ public class Calculator {
 			return numbers.split("[" + delimiter.substring(0, 1) + "]{" + delimiter.length() + "}");
 		}
 		else if(numberOfOpeningBrackets >= 2){
-			
+			String findDelimeter;
 			for(int i = numberOfOpeningBrackets; i > 0; i--){
+				findDelimeter = "";
 				indexOfOpeningBracket = numbers.indexOf("[");
 				indexOfClosingBracket = numbers.indexOf("]");
-				delimiter += numbers.substring(indexOfOpeningBracket + 1, indexOfClosingBracket);
+				findDelimeter += numbers.substring(indexOfOpeningBracket + 1, indexOfClosingBracket);
+				delimiter += "[" + findDelimeter.substring(0,1) + "]{" + findDelimeter.length() + "}";
+				if(i > 1){
+					delimiter += "|";
+				}
 				numbers = numbers.substring(indexOfClosingBracket + 1);
 			}
 			numbers = numbers.substring(numbers.indexOf("\n") + 1);
-			return numbers.split("[" + delimiter + "]");
+			return numbers.split(delimiter);
 		}	
 		return numbers.split("[,\n]");
-	}
+	}	
 
 	private static int sum(String[] numbers){
     	int total = 0;
