@@ -19,42 +19,37 @@ public class Calculator {
 	}
 	private static int toInt(String number){
     		return Integer.parseInt(number);
+	}
+
+	private static int numberOfOccurrences(String text, String character){
+		return text.length() - text.replace(character, "").length();
 	}		
 
 	private static String[] splitNumbers(String numbers) {
-		String delimiter = "";
-		int numberOfOpeningBrackets = numbers.length() - numbers.replace("[", "").length(); 
+		String allDelimiters = "";
+		int numberOfOpeningBrackets = numberOfOccurrences(numbers, "[");
 		int indexOfOpeningBracket = 0;
 		int indexOfClosingBracket = 0;
 		
-		String firstPart = Pattern.quote("//[");
-		String secondPart = Pattern.quote("]");
-
 		if (numbers.matches("//[^0-9]\n.*")) {
-			delimiter = numbers.substring(2, 3);
+			allDelimiters = numbers.substring(2, 3);
 			numbers = numbers.substring(4);
-			return numbers.split("[,\n" + delimiter + "]");
+			return numbers.split("[,\n" + allDelimiters + "]");
 		}
-		else if(numberOfOpeningBrackets == 1){
-			delimiter = numbers.substring(3, numbers.indexOf("\n") - 1);
-			numbers = numbers.substring(numbers.indexOf("\n") + 1);
-			return numbers.split("[" + delimiter.substring(0, 1) + "]{" + delimiter.length() + "}");
-		}
-		else if(numberOfOpeningBrackets >= 2){
-			String findDelimeter;
+		else if(numberOfOpeningBrackets > 0){
 			for(int i = numberOfOpeningBrackets; i > 0; i--){
-				findDelimeter = "";
+				String findDelimeter = "";
 				indexOfOpeningBracket = numbers.indexOf("[");
 				indexOfClosingBracket = numbers.indexOf("]");
 				findDelimeter += numbers.substring(indexOfOpeningBracket + 1, indexOfClosingBracket);
-				delimiter += "[" + findDelimeter.substring(0,1) + "]{" + findDelimeter.length() + "}";
+				allDelimiters += "[" + findDelimeter.substring(0,1) + "]{" + findDelimeter.length() + "}";
 				if(i > 1){
-					delimiter += "|";
+					allDelimiters += "|";
 				}
 				numbers = numbers.substring(indexOfClosingBracket + 1);
 			}
 			numbers = numbers.substring(numbers.indexOf("\n") + 1);
-			return numbers.split(delimiter);
+			return numbers.split(allDelimiters);
 		}	
 		return numbers.split("[,\n]");
 	}	
